@@ -1,0 +1,7 @@
+{
+  "name": "sign2sign.mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

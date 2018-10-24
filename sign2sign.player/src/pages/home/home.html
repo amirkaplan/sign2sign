@@ -1,10 +1,16 @@
 <ion-header>
-      Business Logo
+     
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class="myview"  padding>
+  <!-- <ion-grid class="grid">
+      <ion-row>
+          <ion-col>
+            sadasdas
+          </ion-col>
+      </ion-row>
+  </ion-grid> -->
+  <div *ngFor="let w of windows" class="window" [style.width]="w.width" [style.height]="w.height"> 
+dssdsd
+  </div>
 </ion-content>

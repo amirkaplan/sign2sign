@@ -10,7 +10,12 @@
           </ion-col>
       </ion-row>
   </ion-grid> -->
-  <div *ngFor="let w of windows" class="window" [style.width]="w.width" [style.height]="w.height"> 
-dssdsd
-  </div>
+  <window-screen *ngFor="let w of windows"  [windowInput]="w">
+
+    dssdsd
+  </window-screen> 
+
 </ion-content>
+
+<!-- class="window" [style.width]="w.width" [style.height]="w.height"
+   [style.position]="absolute" [style.left]="w.y" [style.right]="w.x" -->

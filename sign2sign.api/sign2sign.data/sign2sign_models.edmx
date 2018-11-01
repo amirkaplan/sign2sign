@@ -1,0 +1,936 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sign2signModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="businesses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="logo" Type="nvarchar" MaxLength="250" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="250" />
+          <Property Name="web_site" Type="nvarchar" MaxLength="250" />
+          <Property Name="address" Type="nvarchar" MaxLength="250" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value" Type="nvarchar" MaxLength="250" />
+          <Property Name="category_id" Type="int" />
+        </EntityType>
+        <EntityType Name="content">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="business_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="image" Type="nvarchar" MaxLength="250" />
+          <Property Name="video" Type="nvarchar" MaxLength="250" />
+          <Property Name="duration" Type="int" />
+          <Property Name="text" Type="nvarchar(max)" />
+          <Property Name="approved" Type="bit" />
+          <Property Name="active" Type="bit" />
+          <Property Name="public" Type="bit" />
+          <Property Name="deleted" Type="bit" />
+          <Property Name="html" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="layouts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="template" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="deleted" Type="int" />
+          <Property Name="art" Type="int" />
+        </EntityType>
+        <EntityType Name="partners">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="business_id" Type="int" />
+          <Property Name="partner_id" Type="int" />
+        </EntityType>
+        <EntityType Name="played">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="playlist_id" Type="int" />
+          <Property Name="date_time" Type="datetime" />
+          <Property Name="window_id" Type="int" />
+          <Property Name="duration" Type="int" />
+        </EntityType>
+        <EntityType Name="players">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="business_id" Type="int" />
+        </EntityType>
+        <EntityType Name="playlists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" />
+          <Property Name="business_id" Type="int" Nullable="false" />
+          <Property Name="content_id" Type="int" Nullable="false" />
+          <Property Name="public" Type="bit" />
+        </EntityType>
+        <EntityType Name="promotions">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="business_id" />
+            <PropertyRef Name="categoty_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="business_id" Type="int" Nullable="false" />
+          <Property Name="categoty_id" Type="int" Nullable="false" />
+          <Property Name="allow" Type="bit" />
+          <Property Name="deny" Type="bit" />
+          <Property Name="distance" Type="float" />
+        </EntityType>
+        <EntityType Name="screens">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="loaction" Type="nvarchar" MaxLength="250" />
+          <Property Name="lat" Type="nvarchar" MaxLength="50" />
+          <Property Name="long" Type="nvarchar" MaxLength="50" />
+          <Property Name="layout_id" Type="int" />
+          <Property Name="player_id" Type="int" />
+          <Property Name="deleted" Type="int" />
+        </EntityType>
+        <EntityType Name="windows">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="layout_id" Type="int" />
+          <Property Name="width" Type="int" />
+          <Property Name="hieght" Type="int" />
+          <Property Name="posiotion_x" Type="int" />
+          <Property Name="position_y" Type="int" />
+          <Property Name="z_index" Type="int" />
+          <Property Name="deleted" Type="int" />
+          <Property Name="playlist_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_Categories_Categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="categories1" Type="Self.categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="categories1">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_content_Businesses">
+          <End Role="businesses" Type="Self.businesses" Multiplicity="0..1" />
+          <End Role="content" Type="Self.content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="businesses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="content">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_content_Categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="content" Type="Self.content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="content">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_played_playlists">
+          <End Role="playlists" Type="Self.playlists" Multiplicity="0..1" />
+          <End Role="played" Type="Self.played" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playlists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="played">
+              <PropertyRef Name="playlist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_played_Windows">
+          <End Role="windows" Type="Self.windows" Multiplicity="0..1" />
+          <End Role="played" Type="Self.played" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="windows">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="played">
+              <PropertyRef Name="window_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_Businesses">
+          <End Role="businesses" Type="Self.businesses" Multiplicity="0..1" />
+          <End Role="players" Type="Self.players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="businesses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="players">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playlists_Businesses">
+          <End Role="businesses" Type="Self.businesses" Multiplicity="1" />
+          <End Role="playlists" Type="Self.playlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="businesses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="playlists">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playlists_content">
+          <End Role="content" Type="Self.content" Multiplicity="1" />
+          <End Role="playlists" Type="Self.playlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="content">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="playlists">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_promotions_Businesses">
+          <End Role="businesses" Type="Self.businesses" Multiplicity="1" />
+          <End Role="promotions" Type="Self.promotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="businesses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="promotions">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_promotions_Categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="1" />
+          <End Role="promotions" Type="Self.promotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="promotions">
+              <PropertyRef Name="categoty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Screens_Layouts">
+          <End Role="layouts" Type="Self.layouts" Multiplicity="0..1" />
+          <End Role="screens" Type="Self.screens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="layouts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="screens">
+              <PropertyRef Name="layout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Screens_players">
+          <End Role="players" Type="Self.players" Multiplicity="0..1" />
+          <End Role="screens" Type="Self.screens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="screens">
+              <PropertyRef Name="player_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Windows_Layouts">
+          <End Role="layouts" Type="Self.layouts" Multiplicity="0..1" />
+          <End Role="windows" Type="Self.windows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="layouts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="windows">
+              <PropertyRef Name="layout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Windows_playlists">
+          <End Role="playlists" Type="Self.playlists" Multiplicity="0..1" />
+          <End Role="windows" Type="Self.windows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playlists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="windows">
+              <PropertyRef Name="playlist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sign2signModelStoreContainer">
+          <EntitySet Name="businesses" EntityType="Self.businesses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="content" EntityType="Self.content" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="layouts" EntityType="Self.layouts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="partners" EntityType="Self.partners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="played" EntityType="Self.played" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="players" EntityType="Self.players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="playlists" EntityType="Self.playlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="promotions" EntityType="Self.promotions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="screens" EntityType="Self.screens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="windows" EntityType="Self.windows" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Categories_Categories" Association="Self.FK_Categories_Categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="categories1" EntitySet="categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_content_Businesses" Association="Self.FK_content_Businesses">
+            <End Role="businesses" EntitySet="businesses" />
+            <End Role="content" EntitySet="content" />
+          </AssociationSet>
+          <AssociationSet Name="FK_content_Categories" Association="Self.FK_content_Categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="content" EntitySet="content" />
+          </AssociationSet>
+          <AssociationSet Name="FK_played_playlists" Association="Self.FK_played_playlists">
+            <End Role="playlists" EntitySet="playlists" />
+            <End Role="played" EntitySet="played" />
+          </AssociationSet>
+          <AssociationSet Name="FK_played_Windows" Association="Self.FK_played_Windows">
+            <End Role="windows" EntitySet="windows" />
+            <End Role="played" EntitySet="played" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_Businesses" Association="Self.FK_players_Businesses">
+            <End Role="businesses" EntitySet="businesses" />
+            <End Role="players" EntitySet="players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playlists_Businesses" Association="Self.FK_playlists_Businesses">
+            <End Role="businesses" EntitySet="businesses" />
+            <End Role="playlists" EntitySet="playlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playlists_content" Association="Self.FK_playlists_content">
+            <End Role="content" EntitySet="content" />
+            <End Role="playlists" EntitySet="playlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_promotions_Businesses" Association="Self.FK_promotions_Businesses">
+            <End Role="businesses" EntitySet="businesses" />
+            <End Role="promotions" EntitySet="promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_promotions_Categories" Association="Self.FK_promotions_Categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="promotions" EntitySet="promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Screens_Layouts" Association="Self.FK_Screens_Layouts">
+            <End Role="layouts" EntitySet="layouts" />
+            <End Role="screens" EntitySet="screens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Screens_players" Association="Self.FK_Screens_players">
+            <End Role="players" EntitySet="players" />
+            <End Role="screens" EntitySet="screens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Windows_Layouts" Association="Self.FK_Windows_Layouts">
+            <End Role="layouts" EntitySet="layouts" />
+            <End Role="windows" EntitySet="windows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Windows_playlists" Association="Self.FK_Windows_playlists">
+            <End Role="playlists" EntitySet="playlists" />
+            <End Role="windows" EntitySet="windows" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sign2signModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="sign2signEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="businesses" EntityType="sign2signModel.business" />
+          <EntitySet Name="categories" EntityType="sign2signModel.category" />
+          <EntitySet Name="contents" EntityType="sign2signModel.content" />
+          <EntitySet Name="layouts" EntityType="sign2signModel.layout" />
+          <EntitySet Name="partners" EntityType="sign2signModel.partner" />
+          <EntitySet Name="playeds" EntityType="sign2signModel.played" />
+          <EntitySet Name="players" EntityType="sign2signModel.player" />
+          <EntitySet Name="playlists" EntityType="sign2signModel.playlist" />
+          <EntitySet Name="promotions" EntityType="sign2signModel.promotion" />
+          <EntitySet Name="screens" EntityType="sign2signModel.screen" />
+          <EntitySet Name="windows" EntityType="sign2signModel.window" />
+          <AssociationSet Name="FK_content_Businesses" Association="sign2signModel.FK_content_Businesses">
+            <End Role="business" EntitySet="businesses" />
+            <End Role="content" EntitySet="contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_Businesses" Association="sign2signModel.FK_players_Businesses">
+            <End Role="business" EntitySet="businesses" />
+            <End Role="player" EntitySet="players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playlists_Businesses" Association="sign2signModel.FK_playlists_Businesses">
+            <End Role="business" EntitySet="businesses" />
+            <End Role="playlist" EntitySet="playlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_promotions_Businesses" Association="sign2signModel.FK_promotions_Businesses">
+            <End Role="business" EntitySet="businesses" />
+            <End Role="promotion" EntitySet="promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_Categories" Association="sign2signModel.FK_Categories_Categories">
+            <End Role="category" EntitySet="categories" />
+            <End Role="category1" EntitySet="categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_content_Categories" Association="sign2signModel.FK_content_Categories">
+            <End Role="category" EntitySet="categories" />
+            <End Role="content" EntitySet="contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_promotions_Categories" Association="sign2signModel.FK_promotions_Categories">
+            <End Role="category" EntitySet="categories" />
+            <End Role="promotion" EntitySet="promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playlists_content" Association="sign2signModel.FK_playlists_content">
+            <End Role="content" EntitySet="contents" />
+            <End Role="playlist" EntitySet="playlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Screens_Layouts" Association="sign2signModel.FK_Screens_Layouts">
+            <End Role="layout" EntitySet="layouts" />
+            <End Role="screen" EntitySet="screens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Windows_Layouts" Association="sign2signModel.FK_Windows_Layouts">
+            <End Role="layout" EntitySet="layouts" />
+            <End Role="window" EntitySet="windows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_played_playlists" Association="sign2signModel.FK_played_playlists">
+            <End Role="playlist" EntitySet="playlists" />
+            <End Role="played" EntitySet="playeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_played_Windows" Association="sign2signModel.FK_played_Windows">
+            <End Role="window" EntitySet="windows" />
+            <End Role="played" EntitySet="playeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Screens_players" Association="sign2signModel.FK_Screens_players">
+            <End Role="player" EntitySet="players" />
+            <End Role="screen" EntitySet="screens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Windows_playlists" Association="sign2signModel.FK_Windows_playlists">
+            <End Role="playlist" EntitySet="playlists" />
+            <End Role="window" EntitySet="windows" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="business">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="web_site" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contents" Relationship="sign2signModel.FK_content_Businesses" FromRole="business" ToRole="content" />
+          <NavigationProperty Name="players" Relationship="sign2signModel.FK_players_Businesses" FromRole="business" ToRole="player" />
+          <NavigationProperty Name="playlists" Relationship="sign2signModel.FK_playlists_Businesses" FromRole="business" ToRole="playlist" />
+          <NavigationProperty Name="promotions" Relationship="sign2signModel.FK_promotions_Businesses" FromRole="business" ToRole="promotion" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="category_id" Type="Int32" />
+          <NavigationProperty Name="categories1" Relationship="sign2signModel.FK_Categories_Categories" FromRole="category" ToRole="category1" />
+          <NavigationProperty Name="category1" Relationship="sign2signModel.FK_Categories_Categories" FromRole="category1" ToRole="category" />
+          <NavigationProperty Name="contents" Relationship="sign2signModel.FK_content_Categories" FromRole="category" ToRole="content" />
+          <NavigationProperty Name="promotions" Relationship="sign2signModel.FK_promotions_Categories" FromRole="category" ToRole="promotion" />
+        </EntityType>
+        <EntityType Name="content">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="business_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="video" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="duration" Type="Int32" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="approved" Type="Boolean" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="public" Type="Boolean" />
+          <Property Name="deleted" Type="Boolean" />
+          <Property Name="html" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="business" Relationship="sign2signModel.FK_content_Businesses" FromRole="content" ToRole="business" />
+          <NavigationProperty Name="category" Relationship="sign2signModel.FK_content_Categories" FromRole="content" ToRole="category" />
+          <NavigationProperty Name="playlists" Relationship="sign2signModel.FK_playlists_content" FromRole="content" ToRole="playlist" />
+        </EntityType>
+        <EntityType Name="layout">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="template" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deleted" Type="Int32" />
+          <Property Name="art" Type="Int32" />
+          <NavigationProperty Name="screens" Relationship="sign2signModel.FK_Screens_Layouts" FromRole="layout" ToRole="screen" />
+          <NavigationProperty Name="windows" Relationship="sign2signModel.FK_Windows_Layouts" FromRole="layout" ToRole="window" />
+        </EntityType>
+        <EntityType Name="partner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="business_id" Type="Int32" />
+          <Property Name="partner_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="played">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playlist_id" Type="Int32" />
+          <Property Name="date_time" Type="DateTime" Precision="3" />
+          <Property Name="window_id" Type="Int32" />
+          <Property Name="duration" Type="Int32" />
+          <NavigationProperty Name="playlist" Relationship="sign2signModel.FK_played_playlists" FromRole="played" ToRole="playlist" />
+          <NavigationProperty Name="window" Relationship="sign2signModel.FK_played_Windows" FromRole="played" ToRole="window" />
+        </EntityType>
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="business_id" Type="Int32" />
+          <NavigationProperty Name="business" Relationship="sign2signModel.FK_players_Businesses" FromRole="player" ToRole="business" />
+          <NavigationProperty Name="screens" Relationship="sign2signModel.FK_Screens_players" FromRole="player" ToRole="screen" />
+        </EntityType>
+        <EntityType Name="playlist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="business_id" Type="Int32" Nullable="false" />
+          <Property Name="content_id" Type="Int32" Nullable="false" />
+          <Property Name="public" Type="Boolean" />
+          <NavigationProperty Name="business" Relationship="sign2signModel.FK_playlists_Businesses" FromRole="playlist" ToRole="business" />
+          <NavigationProperty Name="content" Relationship="sign2signModel.FK_playlists_content" FromRole="playlist" ToRole="content" />
+          <NavigationProperty Name="playeds" Relationship="sign2signModel.FK_played_playlists" FromRole="playlist" ToRole="played" />
+          <NavigationProperty Name="windows" Relationship="sign2signModel.FK_Windows_playlists" FromRole="playlist" ToRole="window" />
+        </EntityType>
+        <EntityType Name="promotion">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="business_id" />
+            <PropertyRef Name="categoty_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="business_id" Type="Int32" Nullable="false" />
+          <Property Name="categoty_id" Type="Int32" Nullable="false" />
+          <Property Name="allow" Type="Boolean" />
+          <Property Name="deny" Type="Boolean" />
+          <Property Name="distance" Type="Double" />
+          <NavigationProperty Name="business" Relationship="sign2signModel.FK_promotions_Businesses" FromRole="promotion" ToRole="business" />
+          <NavigationProperty Name="category" Relationship="sign2signModel.FK_promotions_Categories" FromRole="promotion" ToRole="category" />
+        </EntityType>
+        <EntityType Name="screen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="loaction" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="layout_id" Type="Int32" />
+          <Property Name="player_id" Type="Int32" />
+          <Property Name="deleted" Type="Int32" />
+          <NavigationProperty Name="layout" Relationship="sign2signModel.FK_Screens_Layouts" FromRole="screen" ToRole="layout" />
+          <NavigationProperty Name="player" Relationship="sign2signModel.FK_Screens_players" FromRole="screen" ToRole="player" />
+        </EntityType>
+        <EntityType Name="window">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="layout_id" Type="Int32" />
+          <Property Name="width" Type="Int32" />
+          <Property Name="hieght" Type="Int32" />
+          <Property Name="posiotion_x" Type="Int32" />
+          <Property Name="position_y" Type="Int32" />
+          <Property Name="z_index" Type="Int32" />
+          <Property Name="deleted" Type="Int32" />
+          <Property Name="playlist_id" Type="Int32" />
+          <NavigationProperty Name="layout" Relationship="sign2signModel.FK_Windows_Layouts" FromRole="window" ToRole="layout" />
+          <NavigationProperty Name="playeds" Relationship="sign2signModel.FK_played_Windows" FromRole="window" ToRole="played" />
+          <NavigationProperty Name="playlist" Relationship="sign2signModel.FK_Windows_playlists" FromRole="window" ToRole="playlist" />
+        </EntityType>
+        <Association Name="FK_content_Businesses">
+          <End Type="sign2signModel.business" Role="business" Multiplicity="0..1" />
+          <End Type="sign2signModel.content" Role="content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="business">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="content">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_Businesses">
+          <End Type="sign2signModel.business" Role="business" Multiplicity="0..1" />
+          <End Type="sign2signModel.player" Role="player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="business">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="player">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playlists_Businesses">
+          <End Type="sign2signModel.business" Role="business" Multiplicity="1" />
+          <End Type="sign2signModel.playlist" Role="playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="business">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="playlist">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_promotions_Businesses">
+          <End Type="sign2signModel.business" Role="business" Multiplicity="1" />
+          <End Type="sign2signModel.promotion" Role="promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="business">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="promotion">
+              <PropertyRef Name="business_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_Categories">
+          <End Type="sign2signModel.category" Role="category" Multiplicity="0..1" />
+          <End Type="sign2signModel.category" Role="category1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="category1">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_content_Categories">
+          <End Type="sign2signModel.category" Role="category" Multiplicity="0..1" />
+          <End Type="sign2signModel.content" Role="content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="content">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_promotions_Categories">
+          <End Type="sign2signModel.category" Role="category" Multiplicity="1" />
+          <End Type="sign2signModel.promotion" Role="promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="promotion">
+              <PropertyRef Name="categoty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playlists_content">
+          <End Type="sign2signModel.content" Role="content" Multiplicity="1" />
+          <End Type="sign2signModel.playlist" Role="playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="content">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="playlist">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Screens_Layouts">
+          <End Type="sign2signModel.layout" Role="layout" Multiplicity="0..1" />
+          <End Type="sign2signModel.screen" Role="screen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="layout">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="screen">
+              <PropertyRef Name="layout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Windows_Layouts">
+          <End Type="sign2signModel.layout" Role="layout" Multiplicity="0..1" />
+          <End Type="sign2signModel.window" Role="window" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="layout">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="window">
+              <PropertyRef Name="layout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_played_playlists">
+          <End Type="sign2signModel.playlist" Role="playlist" Multiplicity="0..1" />
+          <End Type="sign2signModel.played" Role="played" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playlist">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="played">
+              <PropertyRef Name="playlist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_played_Windows">
+          <End Type="sign2signModel.window" Role="window" Multiplicity="0..1" />
+          <End Type="sign2signModel.played" Role="played" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="window">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="played">
+              <PropertyRef Name="window_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Screens_players">
+          <End Type="sign2signModel.player" Role="player" Multiplicity="0..1" />
+          <End Type="sign2signModel.screen" Role="screen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="player">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="screen">
+              <PropertyRef Name="player_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Windows_playlists">
+          <End Type="sign2signModel.playlist" Role="playlist" Multiplicity="0..1" />
+          <End Type="sign2signModel.window" Role="window" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playlist">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="window">
+              <PropertyRef Name="playlist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sign2signModelStoreContainer" CdmEntityContainer="sign2signEntities">
+          <EntitySetMapping Name="businesses">
+            <EntityTypeMapping TypeName="sign2signModel.business">
+              <MappingFragment StoreEntitySet="businesses">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="web_site" ColumnName="web_site" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="sign2signModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contents">
+            <EntityTypeMapping TypeName="sign2signModel.content">
+              <MappingFragment StoreEntitySet="content">
+                <ScalarProperty Name="html" ColumnName="html" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="public" ColumnName="public" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="video" ColumnName="video" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="business_id" ColumnName="business_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="layouts">
+            <EntityTypeMapping TypeName="sign2signModel.layout">
+              <MappingFragment StoreEntitySet="layouts">
+                <ScalarProperty Name="art" ColumnName="art" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="template" ColumnName="template" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partners">
+            <EntityTypeMapping TypeName="sign2signModel.partner">
+              <MappingFragment StoreEntitySet="partners">
+                <ScalarProperty Name="partner_id" ColumnName="partner_id" />
+                <ScalarProperty Name="business_id" ColumnName="business_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playeds">
+            <EntityTypeMapping TypeName="sign2signModel.played">
+              <MappingFragment StoreEntitySet="played">
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="window_id" ColumnName="window_id" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="playlist_id" ColumnName="playlist_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="players">
+            <EntityTypeMapping TypeName="sign2signModel.player">
+              <MappingFragment StoreEntitySet="players">
+                <ScalarProperty Name="business_id" ColumnName="business_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playlists">
+            <EntityTypeMapping TypeName="sign2signModel.playlist">
+              <MappingFragment StoreEntitySet="playlists">
+                <ScalarProperty Name="public" ColumnName="public" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="business_id" ColumnName="business_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="promotions">
+            <EntityTypeMapping TypeName="sign2signModel.promotion">
+              <MappingFragment StoreEntitySet="promotions">
+                <ScalarProperty Name="distance" ColumnName="distance" />
+                <ScalarProperty Name="deny" ColumnName="deny" />
+                <ScalarProperty Name="allow" ColumnName="allow" />
+                <ScalarProperty Name="categoty_id" ColumnName="categoty_id" />
+                <ScalarProperty Name="business_id" ColumnName="business_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="screens">
+            <EntityTypeMapping TypeName="sign2signModel.screen">
+              <MappingFragment StoreEntitySet="screens">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="player_id" ColumnName="player_id" />
+                <ScalarProperty Name="layout_id" ColumnName="layout_id" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="loaction" ColumnName="loaction" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="windows">
+            <EntityTypeMapping TypeName="sign2signModel.window">
+              <MappingFragment StoreEntitySet="windows">
+                <ScalarProperty Name="playlist_id" ColumnName="playlist_id" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="z_index" ColumnName="z_index" />
+                <ScalarProperty Name="position_y" ColumnName="position_y" />
+                <ScalarProperty Name="posiotion_x" ColumnName="posiotion_x" />
+                <ScalarProperty Name="hieght" ColumnName="hieght" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="layout_id" ColumnName="layout_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

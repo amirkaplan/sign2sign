@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="sign2signModel.playlist" Width="1.5" PointX="8.25" PointY="7" />
         <EntityTypeShape EntityType="sign2signModel.promotion" Width="1.5" PointX="6" PointY="7" />
         <EntityTypeShape EntityType="sign2signModel.screen" Width="1.5" PointX="5.25" PointY="15.125" />
-        <EntityTypeShape EntityType="sign2signModel.window" Width="1.5" PointX="10.5" PointY="6.625" />
         <AssociationConnector Association="sign2signModel.FK_content_Businesses" />
         <AssociationConnector Association="sign2signModel.FK_players_Businesses" />
         <AssociationConnector Association="sign2signModel.FK_playlists_Businesses" />
@@ -25,10 +24,11 @@
         <AssociationConnector Association="sign2signModel.FK_promotions_Categories" />
         <AssociationConnector Association="sign2signModel.FK_playlists_content" />
         <AssociationConnector Association="sign2signModel.FK_Screens_Layouts" />
-        <AssociationConnector Association="sign2signModel.FK_Windows_Layouts" />
         <AssociationConnector Association="sign2signModel.FK_played_playlists" />
-        <AssociationConnector Association="sign2signModel.FK_played_Windows" />
         <AssociationConnector Association="sign2signModel.FK_Screens_players" />
+        <EntityTypeShape EntityType="sign2signModel.window" Width="1.5" PointX="10.5" PointY="4.75" />
+        <AssociationConnector Association="sign2signModel.FK_Windows_Layouts" />
+        <AssociationConnector Association="sign2signModel.FK_played_Windows" />
         <AssociationConnector Association="sign2signModel.FK_Windows_playlists" />
       </Diagram>
     </edmx:Diagrams>

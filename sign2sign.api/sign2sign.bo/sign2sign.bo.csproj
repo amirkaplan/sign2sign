@@ -45,5 +45,11 @@
     <Compile Include="Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sign2sign.data\sign2sign.data.csproj">
+      <Project>{139797df-66d3-4755-aef1-e56b09c27693}</Project>
+      <Name>sign2sign.data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

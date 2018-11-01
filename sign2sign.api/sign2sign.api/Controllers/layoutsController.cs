@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using sign2sign.bo;
 using sign2sign.data;
 
 namespace sign2sign.api.Controllers
@@ -18,27 +19,55 @@ namespace sign2sign.api.Controllers
         private sign2signEntities db = new sign2signEntities();
 
         // GET: api/layouts
-        public List<layout> Getlayouts()
+        public IQueryable<Layout> Getlayouts()
         {
-            var layouts = db.layouts.ToList();
-            foreach (var layout in layouts)
-            {
-                layout.windows = db.windows.Where(x => x.layout_id == layout.id).ToList();
-            }
-            return layouts;
+            return from layout in db.layouts
+                   select new Layout
+                   {
+                       id = layout.id,
+                       name = layout.name,
+                       windows = (from window in db.windows
+                                  where window.layout_id == layout.id
+                                  select new Window
+                                  {
+                                      id = window.id,
+                                      width = window.width,
+                                      hieght = window.hieght,
+                                      top = window.top,
+                                      left = window.left,
+                                      layout_id = window.layout_id,
+                                      z_index = window.z_index
+                                  }).ToList()
+                   };
         }
 
         // GET: api/layouts/5
         [ResponseType(typeof(layout))]
         public async Task<IHttpActionResult> Getlayout(int id)
         {
-            layout layout = await db.layouts.FindAsync(id);
+            Layout layout = await (from l in db.layouts
+                                   where l.id == id
+                                   select new Layout
+                                   {
+                                       id = l.id,
+                                       name = l.name,
+                                       windows = (from window in db.windows
+                                                  where window.layout_id == l.id
+                                                  select new Window
+                                                  {
+                                                      id = window.id,
+                                                      width = window.width,
+                                                      hieght = window.hieght,
+                                                      top = window.top,
+                                                      left = window.left,
+                                                      layout_id = window.layout_id,
+                                                      z_index = window.z_index
+                                                  }).ToList()
+                                   }).SingleOrDefaultAsync();
             if (layout == null)
             {
                 return NotFound();
             }
-
-            layout.windows = db.windows.Where(x => x.layout_id == layout.id).ToList();
 
             return Ok(layout);
         }

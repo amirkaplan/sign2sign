@@ -127,11 +127,11 @@
           <Property Name="layout_id" Type="int" />
           <Property Name="width" Type="int" />
           <Property Name="hieght" Type="int" />
-          <Property Name="posiotion_x" Type="int" />
-          <Property Name="position_y" Type="int" />
           <Property Name="z_index" Type="int" />
           <Property Name="deleted" Type="int" />
           <Property Name="playlist_id" Type="int" />
+          <Property Name="top" Type="int" />
+          <Property Name="left" Type="int" />
         </EntityType>
         <Association Name="FK_Categories_Categories">
           <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
@@ -385,7 +385,6 @@
           <EntitySet Name="playlists" EntityType="sign2signModel.playlist" />
           <EntitySet Name="promotions" EntityType="sign2signModel.promotion" />
           <EntitySet Name="screens" EntityType="sign2signModel.screen" />
-          <EntitySet Name="windows" EntityType="sign2signModel.window" />
           <AssociationSet Name="FK_content_Businesses" Association="sign2signModel.FK_content_Businesses">
             <End Role="business" EntitySet="businesses" />
             <End Role="content" EntitySet="contents" />
@@ -422,21 +421,22 @@
             <End Role="layout" EntitySet="layouts" />
             <End Role="screen" EntitySet="screens" />
           </AssociationSet>
-          <AssociationSet Name="FK_Windows_Layouts" Association="sign2signModel.FK_Windows_Layouts">
-            <End Role="layout" EntitySet="layouts" />
-            <End Role="window" EntitySet="windows" />
-          </AssociationSet>
           <AssociationSet Name="FK_played_playlists" Association="sign2signModel.FK_played_playlists">
             <End Role="playlist" EntitySet="playlists" />
-            <End Role="played" EntitySet="playeds" />
-          </AssociationSet>
-          <AssociationSet Name="FK_played_Windows" Association="sign2signModel.FK_played_Windows">
-            <End Role="window" EntitySet="windows" />
             <End Role="played" EntitySet="playeds" />
           </AssociationSet>
           <AssociationSet Name="FK_Screens_players" Association="sign2signModel.FK_Screens_players">
             <End Role="player" EntitySet="players" />
             <End Role="screen" EntitySet="screens" />
+          </AssociationSet>
+          <EntitySet Name="windows" EntityType="sign2signModel.window" />
+          <AssociationSet Name="FK_Windows_Layouts" Association="sign2signModel.FK_Windows_Layouts">
+            <End Role="layout" EntitySet="layouts" />
+            <End Role="window" EntitySet="windows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_played_Windows" Association="sign2signModel.FK_played_Windows">
+            <End Role="window" EntitySet="windows" />
+            <End Role="played" EntitySet="playeds" />
           </AssociationSet>
           <AssociationSet Name="FK_Windows_playlists" Association="sign2signModel.FK_Windows_playlists">
             <End Role="playlist" EntitySet="playlists" />
@@ -582,23 +582,6 @@
           <NavigationProperty Name="layout" Relationship="sign2signModel.FK_Screens_Layouts" FromRole="screen" ToRole="layout" />
           <NavigationProperty Name="player" Relationship="sign2signModel.FK_Screens_players" FromRole="screen" ToRole="player" />
         </EntityType>
-        <EntityType Name="window">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="layout_id" Type="Int32" />
-          <Property Name="width" Type="Int32" />
-          <Property Name="hieght" Type="Int32" />
-          <Property Name="posiotion_x" Type="Int32" />
-          <Property Name="position_y" Type="Int32" />
-          <Property Name="z_index" Type="Int32" />
-          <Property Name="deleted" Type="Int32" />
-          <Property Name="playlist_id" Type="Int32" />
-          <NavigationProperty Name="layout" Relationship="sign2signModel.FK_Windows_Layouts" FromRole="window" ToRole="layout" />
-          <NavigationProperty Name="playeds" Relationship="sign2signModel.FK_played_Windows" FromRole="window" ToRole="played" />
-          <NavigationProperty Name="playlist" Relationship="sign2signModel.FK_Windows_playlists" FromRole="window" ToRole="playlist" />
-        </EntityType>
         <Association Name="FK_content_Businesses">
           <End Type="sign2signModel.business" Role="business" Multiplicity="0..1" />
           <End Type="sign2signModel.content" Role="content" Multiplicity="*" />
@@ -707,18 +690,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Windows_Layouts">
-          <End Type="sign2signModel.layout" Role="layout" Multiplicity="0..1" />
-          <End Type="sign2signModel.window" Role="window" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="layout">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="window">
-              <PropertyRef Name="layout_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_played_playlists">
           <End Type="sign2signModel.playlist" Role="playlist" Multiplicity="0..1" />
           <End Type="sign2signModel.played" Role="played" Multiplicity="*" />
@@ -731,18 +702,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_played_Windows">
-          <End Type="sign2signModel.window" Role="window" Multiplicity="0..1" />
-          <End Type="sign2signModel.played" Role="played" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="window">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="played">
-              <PropertyRef Name="window_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Screens_players">
           <End Type="sign2signModel.player" Role="player" Multiplicity="0..1" />
           <End Type="sign2signModel.screen" Role="screen" Multiplicity="*" />
@@ -752,6 +711,47 @@
             </Principal>
             <Dependent Role="screen">
               <PropertyRef Name="player_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="window">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="layout_id" Type="Int32" />
+          <Property Name="width" Type="Int32" />
+          <Property Name="hieght" Type="Int32" />
+          <Property Name="z_index" Type="Int32" />
+          <Property Name="deleted" Type="Int32" />
+          <Property Name="playlist_id" Type="Int32" />
+          <Property Name="top" Type="Int32" />
+          <Property Name="left" Type="Int32" />
+          <NavigationProperty Name="layout" Relationship="sign2signModel.FK_Windows_Layouts" FromRole="window" ToRole="layout" />
+          <NavigationProperty Name="playeds" Relationship="sign2signModel.FK_played_Windows" FromRole="window" ToRole="played" />
+          <NavigationProperty Name="playlist" Relationship="sign2signModel.FK_Windows_playlists" FromRole="window" ToRole="playlist" />
+        </EntityType>
+        <Association Name="FK_Windows_Layouts">
+          <End Type="sign2signModel.layout" Role="layout" Multiplicity="0..1" />
+          <End Type="sign2signModel.window" Role="window" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="layout">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="window">
+              <PropertyRef Name="layout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_played_Windows">
+          <End Type="sign2signModel.window" Role="window" Multiplicity="0..1" />
+          <End Type="sign2signModel.played" Role="played" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="window">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="played">
+              <PropertyRef Name="window_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -898,11 +898,11 @@
           <EntitySetMapping Name="windows">
             <EntityTypeMapping TypeName="sign2signModel.window">
               <MappingFragment StoreEntitySet="windows">
+                <ScalarProperty Name="left" ColumnName="left" />
+                <ScalarProperty Name="top" ColumnName="top" />
                 <ScalarProperty Name="playlist_id" ColumnName="playlist_id" />
                 <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="z_index" ColumnName="z_index" />
-                <ScalarProperty Name="position_y" ColumnName="position_y" />
-                <ScalarProperty Name="posiotion_x" ColumnName="posiotion_x" />
                 <ScalarProperty Name="hieght" ColumnName="hieght" />
                 <ScalarProperty Name="width" ColumnName="width" />
                 <ScalarProperty Name="layout_id" ColumnName="layout_id" />

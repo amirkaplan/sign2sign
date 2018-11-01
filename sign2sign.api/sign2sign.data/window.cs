@@ -24,11 +24,11 @@ namespace sign2sign.data
         public Nullable<int> layout_id { get; set; }
         public Nullable<int> width { get; set; }
         public Nullable<int> hieght { get; set; }
-        public Nullable<int> posiotion_x { get; set; }
-        public Nullable<int> position_y { get; set; }
         public Nullable<int> z_index { get; set; }
         public Nullable<int> deleted { get; set; }
         public Nullable<int> playlist_id { get; set; }
+        public Nullable<int> top { get; set; }
+        public Nullable<int> left { get; set; }
     
         public virtual layout layout { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -22,17 +22,16 @@ namespace sign2sign.api.Controllers
         // GET: api/windows
         public IQueryable<Window> Getwindows()
         {
-
-            return from w in db.windows
+            return from window in db.windows
                    select new Window
                    {
-                       id = w.id,
-                       width = w.width,
-                       hieght = w.hieght,
-                       posiotion_x = w.posiotion_x,
-                       position_y = w.position_y,
-                       layout_id = w.layout_id,
-                       z_index = w.z_index
+                       id = window.id,
+                       width = window.width,
+                       hieght = window.hieght,
+                       top = window.top,
+                       left = window.left,
+                       layout_id = window.layout_id,
+                       z_index = window.z_index
                    };
         }
 
@@ -40,7 +39,17 @@ namespace sign2sign.api.Controllers
         [ResponseType(typeof(window))]
         public async Task<IHttpActionResult> Getwindow(int id)
         {
-            window window = await db.windows.FindAsync(id);
+            Window window = await (from w in db.windows
+                                   select new Window
+                                   {
+                                       id = w.id,
+                                       width = w.width,
+                                       hieght = w.hieght,
+                                       top = w.top,
+                                       left = w.left,
+                                       layout_id = w.layout_id,
+                                       z_index = w.z_index
+                                   }).SingleOrDefaultAsync();
             if (window == null)
             {
                 return NotFound();

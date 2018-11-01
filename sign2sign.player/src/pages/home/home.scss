@@ -1,7 +1,20 @@
 page-home {
 
-}
-ion-header :after{
-    background:none;
-    border:0;
+    ion-header:after{
+        background:none;
+        border:0;
+    }
+    ion-content.myview{
+        background:blue;
+    }
+    ion-grid.grid{
+       
+    }
+
+    img.logo{
+        width:200px;
+    }
+    .window{
+        background:orange;
+    }
 }

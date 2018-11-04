@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sign2sign.api", "sign2sign.api\sign2sign.api.csproj", "{D066B32E-F6EB-4500-843B-5F341EA6AC01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D066B32E-F6EB-4500-843B-5F341EA6AC01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D066B32E-F6EB-4500-843B-5F341EA6AC01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D066B32E-F6EB-4500-843B-5F341EA6AC01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D066B32E-F6EB-4500-843B-5F341EA6AC01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1372896E-0E4D-4CF8-8007-7D0618285F9E}
+	EndGlobalSection
+EndGlobal

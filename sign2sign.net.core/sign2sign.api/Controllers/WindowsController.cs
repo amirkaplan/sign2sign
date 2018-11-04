@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using sign2sign.api.BusinessModels;
 using sign2sign.api.Models;
 
 namespace sign2sign.api.Controllers
@@ -22,9 +23,19 @@ namespace sign2sign.api.Controllers
 
         // GET: api/Windows
         [HttpGet]
-        public IEnumerable<Windows> GetWindows()
+        public IEnumerable<window> GetWindows()
         {
-            return _context.Windows;
+            return from w in _context.Windows
+                   select new window
+                   {
+                       Id = w.Id,
+                       Width = w.Width,
+                       Hieght = w.Hieght,
+                       Top = w.Top,
+                       Left = w.Left,
+                       ZIndex = w.ZIndex
+                   };
+
         }
 
         // GET: api/Windows/5
@@ -36,7 +47,17 @@ namespace sign2sign.api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var windows = await _context.Windows.FindAsync(id);
+            var windows = await (from w in _context.Windows
+                                 where w.Id == id
+                                 select new window
+                                 {
+                                     Id = w.Id,
+                                     Width = w.Width,
+                                     Hieght = w.Hieght,
+                                     Top = w.Top,
+                                     Left = w.Left,
+                                     ZIndex = w.ZIndex
+                                 }).FirstOrDefaultAsync();
 
             if (windows == null)
             {

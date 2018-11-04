@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using sign2sign.api.BusinessModels;
 using sign2sign.api.Models;
 
 namespace sign2sign.api.Controllers
@@ -22,9 +23,25 @@ namespace sign2sign.api.Controllers
 
         // GET: api/Layouts
         [HttpGet]
-        public IEnumerable<Layouts> GetLayouts()
+        public IEnumerable<layout> GetLayouts()
         {
-            return _context.Layouts;
+            return from l in _context.Layouts
+                   select new layout
+                   {
+                       Id = l.Id,
+                       Name = l.Name,
+                       Windows = (from w in _context.Windows
+                                  where w.LayoutId == l.Id
+                                  select new window
+                                  {
+                                      Id = w.Id,
+                                      Width = w.Width,
+                                      Hieght = w.Hieght,
+                                      Top = w.Top,
+                                      Left = w.Left,
+                                      ZIndex = w.ZIndex
+                                  }).ToList()
+                   };
         }
 
         // GET: api/Layouts/5
@@ -36,16 +53,31 @@ namespace sign2sign.api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var layouts = await _context.Layouts.FindAsync(id);
-            layouts.Windows = await (from window in _context.Windows
-                                     where window.LayoutId == id
-                                     select window).ToListAsync();
-            if (layouts == null)
+            var layout = await (from l in _context.Layouts
+                                where l.Id == id
+                                select new layout
+                                {
+                                    Id = l.Id,
+                                    Name = l.Name,
+                                    Windows = (from w in _context.Windows
+                                               where w.LayoutId == l.Id
+                                               select new window
+                                               {
+                                                   Id = w.Id,
+                                                   Width = w.Width,
+                                                   Hieght = w.Hieght,
+                                                   Top = w.Top,
+                                                   Left = w.Left,
+                                                   ZIndex = w.ZIndex
+                                               }).ToList()
+                                }).FirstOrDefaultAsync();
+
+            if (layout == null)
             {
                 return NotFound();
             }
 
-            return Ok(layouts);
+            return Ok(layout);
         }
 
         // PUT: api/Layouts/5

@@ -37,7 +37,9 @@ namespace sign2sign.api.Controllers
             }
 
             var layouts = await _context.Layouts.FindAsync(id);
-
+            layouts.Windows = await (from window in _context.Windows
+                                     where window.LayoutId == id
+                                     select window).ToListAsync();
             if (layouts == null)
             {
                 return NotFound();

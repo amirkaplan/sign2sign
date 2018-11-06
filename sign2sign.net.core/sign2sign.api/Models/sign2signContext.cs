@@ -24,7 +24,7 @@ namespace sign2sign.api.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("data source=sign2sign.database.windows.net;initial catalog=sign2sign;persist security info=True;user id=amirkaplan;password=Qweasdzxc1@;multipleactiveresultsets=True;application name=EntityFramework");
             }
         }
@@ -36,8 +36,8 @@ namespace sign2sign.api.Models
             #region "seed data"
 
             modelBuilder.Entity<IdentityRole>().HasData(
-                new { Id = "1", Name = "Admin" },
-                new { Id = "2", Name = "Business" }
+                new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
+                new { Id = "2", Name = "Business", NormalizedName = "BUSINESS" }
             );
 
             #endregion

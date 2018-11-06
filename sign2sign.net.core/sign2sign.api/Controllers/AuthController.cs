@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using sign2sign.api.BusinessModels;
 
@@ -15,12 +16,16 @@ namespace sign2sign.api.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly UserManager<IdentityUser> _user_manager;
+        private readonly IStringLocalizer<AuthController> _localizer;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> user_manager, IConfiguration configuration)
+        public AuthController(IStringLocalizer<AuthController> localizer,
+                              UserManager<IdentityUser> userManager,
+                              IConfiguration configuration)
         {
-            _user_manager = user_manager;
+            _localizer = localizer;
+            _userManager = userManager;
             _configuration = configuration;
         }
 
@@ -35,11 +40,20 @@ namespace sign2sign.api.Controllers
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
-            var result = await _user_manager.CreateAsync(user, login.Password);
+            var result = await _userManager.CreateAsync(user, login.Password);
             if (result.Succeeded)
             {
-                await _user_manager.AddToRoleAsync(user, "Business");
+                await _userManager.AddToRoleAsync(user, "Business");
             }
+            else if (result.Errors.Any())
+            {
+                if (result.Errors.First().Code == "DuplicateUserName")
+                {
+                    return Ok(new { error = _localizer["DuplicateUserName"].Value });
+                }
+                return Ok(new { error = _localizer["RegisterError"].Value });
+            }
+
             return Ok(new { username = user.UserName });
         }
 
@@ -47,8 +61,8 @@ namespace sign2sign.api.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] Login login)
         {
-            var user = await _user_manager.FindByNameAsync(login.Email);
-            if (user != null && await _user_manager.CheckPasswordAsync(user, login.Password))
+            var user = await _userManager.FindByNameAsync(login.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
             {
                 var claims = new[] {
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName)

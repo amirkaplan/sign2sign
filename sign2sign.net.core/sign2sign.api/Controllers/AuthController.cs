@@ -68,8 +68,8 @@ namespace sign2sign.api.Controllers
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
                 };
 
-                var signinKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(_configuration["Jwt:SigninKey"]));
+                var signingKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(_configuration["Jwt:SigningKey"]));
 
                 int expiryInMinuts = Convert.ToInt32(_configuration["Jwt:ExpiryInMinuts"]);
 
@@ -77,7 +77,7 @@ namespace sign2sign.api.Controllers
                         issuer: _configuration["Jwt:Site"],
                         audience: _configuration["Jwt:Site"],
                         expires: DateTime.UtcNow.AddMinutes(expiryInMinuts),
-                        signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
+                        signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
                     );
 
                 return Ok(

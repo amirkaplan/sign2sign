@@ -1,10 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace sign2sign.api.Models
 {
-    public partial class sign2signContext : DbContext
+    public partial class sign2signContext : IdentityDbContext
     {
         public sign2signContext()
         {
@@ -38,6 +40,15 @@ namespace sign2sign.api.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region "seed data"
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new { Id = 1, Name = "Admin" },
+                new { Id = 2, Name = "Business" }
+            );
+
+            #endregion
+
             modelBuilder.Entity<Businesses>(entity =>
             {
                 entity.ToTable("businesses");

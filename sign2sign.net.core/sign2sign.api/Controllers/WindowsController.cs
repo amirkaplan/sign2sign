@@ -31,7 +31,7 @@ namespace sign2sign.api.Controllers
                    {
                        Id = w.Id,
                        Width = w.Width,
-                       Hieght = w.Hieght,
+                       Height = w.Height,
                        Top = w.Top,
                        Left = w.Left,
                        ZIndex = w.ZIndex
@@ -53,7 +53,7 @@ namespace sign2sign.api.Controllers
                                  {
                                      Id = w.Id,
                                      Width = w.Width,
-                                     Hieght = w.Hieght,
+                                     Height = w.Height,
                                      Top = w.Top,
                                      Left = w.Left,
                                      ZIndex = w.ZIndex

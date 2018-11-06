@@ -59,7 +59,7 @@ namespace sign2sign.api.Models
 
                 entity.Property(e => e.LayoutId).HasColumnName("layout_id");
 
-                entity.Property(e => e.Hieght).HasColumnName("hieght");
+                entity.Property(e => e.Height).HasColumnName("height");
 
                 entity.Property(e => e.Left).HasColumnName("left");
 

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using sign2sign.api.BusinessModels;
 using sign2sign.api.Models;
 
 namespace sign2sign.api.Controllers
@@ -23,10 +22,10 @@ namespace sign2sign.api.Controllers
 
         // GET: api/Windows
         [HttpGet]
-        public IEnumerable<window> GetWindows()
+        public IEnumerable<Window> GetWindows()
         {
             return from w in _context.Windows
-                   select new window
+                   select new Window
                    {
                        Id = w.Id,
                        Width = w.Width,
@@ -35,12 +34,11 @@ namespace sign2sign.api.Controllers
                        Left = w.Left,
                        ZIndex = w.ZIndex
                    };
-
         }
 
         // GET: api/Windows/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWindows([FromRoute] int id)
+        public async Task<IActionResult> GetWindow([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +47,7 @@ namespace sign2sign.api.Controllers
 
             var windows = await (from w in _context.Windows
                                  where w.Id == id
-                                 select new window
+                                 select new Window
                                  {
                                      Id = w.Id,
                                      Width = w.Width,
@@ -69,19 +67,19 @@ namespace sign2sign.api.Controllers
 
         // PUT: api/Windows/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWindows([FromRoute] int id, [FromBody] Windows windows)
+        public async Task<IActionResult> PutWindow([FromRoute] int id, [FromBody] Window window)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != windows.Id)
+            if (id != window.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(windows).State = EntityState.Modified;
+            _context.Entry(window).State = EntityState.Modified;
 
             try
             {
@@ -104,38 +102,38 @@ namespace sign2sign.api.Controllers
 
         // POST: api/Windows
         [HttpPost]
-        public async Task<IActionResult> PostWindows([FromBody] Windows windows)
+        public async Task<IActionResult> PostWindow([FromBody] Window window)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Windows.Add(windows);
+            _context.Windows.Add(window);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWindows", new { id = windows.Id }, windows);
+            return CreatedAtAction("GetWindow", new { id = window.Id }, window);
         }
 
         // DELETE: api/Windows/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWindows([FromRoute] int id)
+        public async Task<IActionResult> DeleteWindow([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var windows = await _context.Windows.FindAsync(id);
-            if (windows == null)
+            var window = await _context.Windows.FindAsync(id);
+            if (window == null)
             {
                 return NotFound();
             }
 
-            _context.Windows.Remove(windows);
+            _context.Windows.Remove(window);
             await _context.SaveChangesAsync();
 
-            return Ok(windows);
+            return Ok(window);
         }
 
         private bool WindowsExists(int id)

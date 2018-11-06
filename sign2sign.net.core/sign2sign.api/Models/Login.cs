@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sign2sign.api.BusinessModels
 {
-    public class login
+    public class Login
     {
         [Required]
         [EmailAddress]

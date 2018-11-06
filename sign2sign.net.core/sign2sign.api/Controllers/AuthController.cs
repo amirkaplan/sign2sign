@@ -26,7 +26,7 @@ namespace sign2sign.api.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<ActionResult> Register([FromBody] login login)
+        public async Task<ActionResult> Register([FromBody] Login login)
         {
             var user = new IdentityUser
             {
@@ -45,7 +45,7 @@ namespace sign2sign.api.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody] login login)
+        public async Task<ActionResult> Login([FromBody] Login login)
         {
             var user = await _user_manager.FindByNameAsync(login.Email);
             if (user != null && await _user_manager.CheckPasswordAsync(user, login.Password))

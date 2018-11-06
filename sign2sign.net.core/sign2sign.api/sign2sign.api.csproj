@@ -12,6 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Businesses.cs" />
+    <Compile Remove="Models\Categories.cs" />
+    <Compile Remove="Models\Content.cs" />
+    <Compile Remove="Models\Partners.cs" />
+    <Compile Remove="Models\Played.cs" />
+    <Compile Remove="Models\Players.cs" />
+    <Compile Remove="Models\Playlists.cs" />
+    <Compile Remove="Models\Promotions.cs" />
+    <Compile Remove="Models\Screens.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

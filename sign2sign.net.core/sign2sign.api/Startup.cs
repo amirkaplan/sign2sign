@@ -61,7 +61,7 @@ namespace sign2sign.api
                     ValidateAudience = true,
                     ValidAudience = Configuration["Jwt:Site"],
                     ValidIssuer = Configuration["Jwt:Site"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigninKey"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigningKey"]))
                 };
             });
 

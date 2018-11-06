@@ -23,16 +23,16 @@ namespace sign2sign.api.Controllers
 
         // GET: api/Layouts
         [HttpGet]
-        public IEnumerable<layout> GetLayouts()
+        public IEnumerable<Layout> GetLayouts()
         {
             return from l in _context.Layouts
-                   select new layout
+                   select new Layout
                    {
                        Id = l.Id,
                        Name = l.Name,
                        Windows = (from w in _context.Windows
                                   where w.LayoutId == l.Id
-                                  select new window
+                                  select new Window
                                   {
                                       Id = w.Id,
                                       Width = w.Width,
@@ -46,7 +46,7 @@ namespace sign2sign.api.Controllers
 
         // GET: api/Layouts/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetLayouts([FromRoute] int id)
+        public async Task<IActionResult> GetLayout([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -55,13 +55,13 @@ namespace sign2sign.api.Controllers
 
             var layout = await (from l in _context.Layouts
                                 where l.Id == id
-                                select new layout
+                                select new Layout
                                 {
                                     Id = l.Id,
                                     Name = l.Name,
                                     Windows = (from w in _context.Windows
                                                where w.LayoutId == l.Id
-                                               select new window
+                                               select new Window
                                                {
                                                    Id = w.Id,
                                                    Width = w.Width,
@@ -82,19 +82,19 @@ namespace sign2sign.api.Controllers
 
         // PUT: api/Layouts/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLayouts([FromRoute] int id, [FromBody] Layouts layouts)
+        public async Task<IActionResult> PutLayout([FromRoute] int id, [FromBody] Layout layout)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != layouts.Id)
+            if (id != layout.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(layouts).State = EntityState.Modified;
+            _context.Entry(layout).State = EntityState.Modified;
 
             try
             {
@@ -117,38 +117,38 @@ namespace sign2sign.api.Controllers
 
         // POST: api/Layouts
         [HttpPost]
-        public async Task<IActionResult> PostLayouts([FromBody] Layouts layouts)
+        public async Task<IActionResult> PostLayout([FromBody] Layout layout)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Layouts.Add(layouts);
+            _context.Layouts.Add(layout);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLayouts", new { id = layouts.Id }, layouts);
+            return CreatedAtAction("GetLayouts", new { id = layout.Id }, layout);
         }
 
         // DELETE: api/Layouts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLayouts([FromRoute] int id)
+        public async Task<IActionResult> DeleteLayout([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var layouts = await _context.Layouts.FindAsync(id);
-            if (layouts == null)
+            var layout = await _context.Layouts.FindAsync(id);
+            if (layout == null)
             {
                 return NotFound();
             }
 
-            _context.Layouts.Remove(layouts);
+            _context.Layouts.Remove(layout);
             await _context.SaveChangesAsync();
 
-            return Ok(layouts);
+            return Ok(layout);
         }
 
         private bool LayoutsExists(int id)
